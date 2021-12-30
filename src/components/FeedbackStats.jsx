@@ -2,9 +2,10 @@ import PropTypes from 'prop-types'
 
 function FeedbackStats({ feedback }) {
   // Calculate ratings avg
-  let average = feedback.reduce((acc, cur) => { 
-    return acc + cur.rating
-  }, 0) / feedback.length
+  let average = 
+    feedback.reduce((acc, cur) => { 
+      return acc + cur.rating
+    }, 0) / feedback.length
 
   average = average.toFixed(1).replace(/[.,]0$/, '')
   // /[.,]0$/, '' is a regular expression that get's rid of my dangling zeros on the average rating.
