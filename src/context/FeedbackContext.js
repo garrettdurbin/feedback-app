@@ -5,7 +5,7 @@ const FeedbackContext = createContext()
 
 // This is my FeedbackProvider
 export const FeedbackProvider = ({ children }) => {
-  // This is my state...it just has one item in it for now.
+  // This is my state.
 
   /*Below, I'm using the hook useState. The name is the first param. The second param is the function to update this piece of state. You normally call the function "set" + "whatever your setting".*/
   const [feedback, setFeedback] = useState([
@@ -25,7 +25,13 @@ export const FeedbackProvider = ({ children }) => {
       rating: 8
     }
   ])
+  // This is my second piece of global state. It get's used when I want to edit one feedback item.
+  const [feedbackEdit, setFeedbackEdit] = useState({
+    item: {},
+    edit: false
+  })
 
+  // Add feedback
   const addFeedback = (newFeedback) => {
     // The uuidv4 function adds a unique id to every new feedback.
     newFeedback.id = uuidv4()
@@ -33,10 +39,19 @@ export const FeedbackProvider = ({ children }) => {
     setFeedback([newFeedback, ...feedback])
   }
 
+  // Delete feedback
   const deleteFeedback = (id) => {
     if (window.confirm('Are you sure you want to delete?')) {
       setFeedback(feedback.filter((item) => item.id !== id))
     }
+  }
+
+  // Set item to be updated
+  const editFeedback = (item) => {
+    setFeedbackEdit({
+      item,
+      edit: true
+    })
   }
 
   // Below, the value "feedback" is how I'm sending the array above into the feedback provider. "FeedbackProvider" is going to be wrapped around all my componendts in app.js
@@ -45,7 +60,8 @@ export const FeedbackProvider = ({ children }) => {
       value={{
         feedback,
         deleteFeedback,
-        addFeedback
+        addFeedback,
+        editFeedback
       }}
     >
       {children}
