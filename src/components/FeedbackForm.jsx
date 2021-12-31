@@ -10,7 +10,8 @@ function FeedbackForm() {
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [message, setMessage] = useState('')
 
-  const {addFeedback, feedbackEdit} = useContext(FeedbackContext)
+  // I think this is an example of "destructuring". I imported "FeedbackContext" above. And now I'm extracting "addFeedback", "feedbackEdit", and "updateFeedback" here below.
+  const {addFeedback, feedbackEdit, updateFeedback} = useContext(FeedbackContext)
 
   useEffect(() => {
     if(feedbackEdit.edit === true) {
@@ -44,8 +45,12 @@ function FeedbackForm() {
         rating
       }
 
-      addFeedback(newFeedback)
-
+      if(feedbackEdit.edit === true) {
+        updateFeedback(feedbackEdit.item.id, newFeedback)
+      } else {
+        addFeedback(newFeedback)
+      }
+      
       setText('')
     }
   }
