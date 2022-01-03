@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+// Only needed this when using the uuidv4 package to assign a unique id to each feedback item on the list.
+// import { v4 as uuidv4 } from 'uuid'
 
 const FeedbackContext = createContext()
 
@@ -23,9 +24,7 @@ export const FeedbackProvider = ({ children }) => {
 
   // Fetch feedback
   const fetchFeedback = async () => {
-    const response = await fetch(
-      `http://localhost:5000/feedback?_sort=id&_order=desc`
-    )
+    const response = await fetch(`/feedback?_sort=id&_order=desc`)
     const data = await response.json()
 
     setFeedback(data)
@@ -33,11 +32,26 @@ export const FeedbackProvider = ({ children }) => {
   }
 
   // Add feedback
-  const addFeedback = (newFeedback) => {
-    // The uuidv4 function adds a unique id to every new feedback.
-    newFeedback.id = uuidv4()
+  const addFeedback = async (newFeedback) => {
+    const response = await fetch('/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newFeedback)
+    })
+
+    const data = await response.json()
+
+    // Below adds new feedback for the UI
+    // The uuidv4 function adds a unique id to every new feedback. I removed the line below after adding the JSON database since it adds a new id automatically.
+    // newFeedback.id = uuidv4()
+
     // This sets feedback to a new array (since I can't change react states, I have to replace them) which will include the feedback from the previous state, but also add newFeedback to it.
-    setFeedback([newFeedback, ...feedback])
+    // setFeedback([newFeedback, ...feedback])
+
+    // Same as setFeedback above except now I'm setting with "data" from json file rather than "newFeedback" as above
+    setFeedback([data, ...feedback])
   }
 
   // Delete feedback
