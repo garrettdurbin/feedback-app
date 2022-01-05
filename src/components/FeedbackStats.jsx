@@ -1,10 +1,13 @@
-import {useContext} from 'react'
+import { useContext } from 'react'
 import FeedbackContext from '../context/FeedbackContext'
 
 function FeedbackStats() {
   // Pulling feedback from context...so I'm no longer receiving it above as a prop.
-  const {feedback} = useContext(FeedbackContext)
+  const { feedback } = useContext(FeedbackContext)
   console.log(feedback)
+  console.log('feedback is: ', feedback)
+  console.log('is feedback an array? ', Array.isArray(feedback))
+  console.log('feedback is type: ', typeof feedback)
 
   // Calculate ratings avg
   let average = 

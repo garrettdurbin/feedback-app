@@ -31,7 +31,7 @@ export const FeedbackProvider = ({ children }) => {
     // )
 
     // Online Version
-    const response = await fetch(`db.json`)
+    const response = await fetch(`db.json/feedback?_sort=id&_order=desc`)
     const data = await response.json()
     console.log(data)
 
@@ -41,6 +41,7 @@ export const FeedbackProvider = ({ children }) => {
 
   // Add feedback
   const addFeedback = async (newFeedback) => {
+    console.log(newFeedback)
     const response = await fetch('/feedback', {
       method: 'POST',
       headers: {
@@ -50,6 +51,7 @@ export const FeedbackProvider = ({ children }) => {
     })
 
     const data = await response.json()
+    console.log(data)
 
     // Below adds new feedback for the UI
     // The uuidv4 function adds a unique id to every new feedback. I removed the line below after adding the JSON database since it adds a new id automatically.
