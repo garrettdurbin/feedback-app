@@ -4,6 +4,7 @@ import FeedbackContext from '../context/FeedbackContext'
 function FeedbackStats() {
   // Pulling feedback from context...so I'm no longer receiving it above as a prop.
   const {feedback} = useContext(FeedbackContext)
+  console.log(feedback)
 
   // Calculate ratings avg
   let average = 

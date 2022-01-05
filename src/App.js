@@ -17,7 +17,7 @@ function App() {
           <Routes>
             <Route
               exact
-              path="/"
+              path="/React_Feedback_App.html"
               element={
                 <>
                   <FeedbackForm />
