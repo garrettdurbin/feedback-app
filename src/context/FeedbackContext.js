@@ -31,11 +31,17 @@ export const FeedbackProvider = ({ children }) => {
     // )
 
     // Online Version
-    const response = await fetch(`db.json/feedback?_sort=id&_order=desc`)
+    const response = await fetch(`data/db.json`)
     const data = await response.json()
     console.log(data)
+    console.log('data is: ', data)
+    console.log('is data an array? ', Array.isArray(data))
+    console.log('data is type: ', typeof data)
+    console.log(data.feedback)
+    console.log('is data.feedback an array? ', Array.isArray(data.feedback))
+    console.log('data.feedback is type: ', typeof data.feedback)
 
-    setFeedback(data)
+    setFeedback(data.feedback)
     setIsLoading(false)
   }
 
